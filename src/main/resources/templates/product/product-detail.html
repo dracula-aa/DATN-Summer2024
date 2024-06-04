@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/image/logo.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deatil</title>
+    <link th:insert="~{components/taglib  :: taglib}">
+    <style>
+    </style>
+</head>
+<body>
+<div th:insert="~{components/header :: header}"></div>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="container mt-4">
+            <div th:unless="${detailProduct}">
+                <div class="row">
+                    <div class="col-6">
+
+                        <img th:src="@{/images/product/product1.jpg}"
+                             alt="Ảnh sản phẩm" class="img-thumbnail"
+                             style="width: 595px; height: 595px">
+
+                    </div>
+                    <div class="col-6">
+                        <p>
+                        <h3 class="text">Rayban Optic</h3>
+                        <span class="text"
+                        ></span> <br>
+                        <strong>Mô tả sản phẩm:</strong> <span
+                    >
+                            Gọng kính Plastic H00238
+Với kiểu dáng trẻ trung năng động theo phong cách thời trang Hàn Quốc.
+Gọng kính nhẹ, bền, đeo thoải mái, và lắp được tròng với độ cao (Cận/Viễn/Loạn).
+Hiện tròng mẫu kính là mica không độ không có tính năng bảo vệ mắt. GlassyZone khuyến nghị nên lắp tròng kính (mắt cận) có tính năng để bảo vệ mắt tốt hơn.
+Kính được thiết kế theo form tròn trẻ trung, năng động, phù hợp cho Nam và Nữ.
+Chất liệu: gọng kính nhựa kết hợp càng kính kim loại phù hợp với nhiều khuôn mặt.
+Sản phẩm có sẵn nhận ngay sau 2-4 giờ đối với nội thành TP HCM, các khu vực khác từ 1-3 ngày.
+Gọng kính được bảo hành 12 tháng theo chính sách bảo hành của GlassyZone.
+Hình ảnh gọng kính thực tế được chụp tại GlassyZone.
+
+Bộ sản phẩm gồm: Gọng kính + Hộp đựng + Phiếu bảo hành.
+                        </span>
+                        </p>
+                        <hr>
+                        <button class="btn btn-warning">Thêm vào giỏ hàng</button>
+                        <button class="btn btn-warning">Mua ngay</button>
+                        <br> <br>
+                        <div class="card-body">
+                            <strong>TẠI SAO LẠI CHỌN GLASSYZONE?</strong> <br> <br>
+                            <ul>
+                                <li><strong>BẢO HÀNH</strong> gọng kính 12 tháng</li>
+                                <li><strong>ĐỔI/TRẢ</strong> linh hoạt trong 03 ngày nếu
+                                    không hài lòng.
+                                </li>
+                                <li><strong>MIỄN PHÍ</strong> vệ sinh, cân chỉnh, thay ve
+                                    mũi, thay ốc TRỌN ĐỜI SẢN PHẨM.
+                                </li>
+                            </ul>
+                        </div>
+                        <br> <br>
+                        <div class="row">
+                            <a class="btn btn-primary text-center" th:href="@{/product}">Đây
+                                không phải thứ bạn cần? Tìm sản phẩm khác! </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--            <div th:unless="${detailProduct}">-->
+            <!--                <div class="alert alert-danger" role="alert">Sản phẩm không-->
+            <!--                    tồn tại hoặc đã bị xóa.-->
+            <!--                </div>-->
+            <!--            </div>-->
+        </div>
+    </div>
+</div>
+<br>
+<div th:insert="~{components/footer :: footer}"></div>
+</body>
+</html>

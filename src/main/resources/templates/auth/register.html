@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassyarea - Đăng Ký</title>
+    <link th:insert="~{components/taglib  :: taglib}">
+    <style>
+    </style>
+</head>
+<body>
+<div th:insert="~{components/header :: header}"></div>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Đăng Ký</h2>
+            <marquee>[[${message}]]</marquee>
+            <form th:action="@{/register}" th:object="${user}" method="post">
+                <div class="form-outline mb-4">
+                    <input th:field="*{fullname}" id="form2Example1" class="form-control"
+                           placeholder="Họ và tên"/>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input th:field="*{address}"
+                           class="form-control" placeholder="Địa chỉ"/>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input th:field="*{phone}"  class="form-control"
+                           placeholder="Số điện thoại"/>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input th:field="*{email}" type="email"
+                           class="form-control" placeholder="Địa chỉ email"/>
+                </div>
+                <div class="form-outline mb-4">
+                    <input th:field="*{password}" type="password"
+                           class="form-control" placeholder="Mật khẩu"/>
+                </div>
+                <div class="form-outline mb-4">
+                    <input name="confirmPass" type="password"
+                           class="form-control" placeholder="Nhập lại mật khẩu"/>
+                </div>
+                <button type="submit"
+                        class="btn btn-primary form-control btn-block text-center mb-4">Đăng
+                    ký
+                </button>
+
+                <div class="text-center">
+                    <p>
+                        Bạn đã có tài khoản? <a th:href="@{/login}" class="text-decoration-none">Đăng nhập</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+<div th:insert="~{components/footer :: footer}"></div>
+</body>
+</html>
