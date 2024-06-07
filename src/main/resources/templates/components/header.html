@@ -38,12 +38,11 @@
                         <div class="dropdown">
                             <span class="nav-link menu-hover fa-solid fa-user"></span>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{/logout}">Đăng
-                                    xuất</a></li>
+                                <li><a class="dropdown-item"> Xin chào, <span th:text="${session.user.fullname}"></span>!</a>
+                                </li>
+                                <li><a class="dropdown-item" th:href="@{/profile}">Tài khoản </a></li>
+                                <li><a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a></li>
                             </ul>
-                            <p>
-                                Xin chào, <span th:text="${session.user.name}"></span>!
-                            </p>
                         </div>
                     </li>
                 </ul>

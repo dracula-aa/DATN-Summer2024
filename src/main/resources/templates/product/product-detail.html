@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/image/logo.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deatil</title>
+    <title>[[${product.name}]]</title>
     <link th:insert="~{components/taglib  :: taglib}">
     <style>
     </style>
@@ -14,37 +14,22 @@
 <br>
 <br>
 <br>
-<br>
 <div class="container">
     <div class="row">
         <div class="container mt-4">
-            <div th:unless="${detailProduct}">
+            <div th:if="${product}">
                 <div class="row">
                     <div class="col-6">
-
-                        <img th:src="@{/images/product/product1.jpg}"
+                        <img th:src="@{/images/products/product1.jpg}"
                              alt="Ảnh sản phẩm" class="img-thumbnail"
                              style="width: 595px; height: 595px">
-
                     </div>
                     <div class="col-6">
                         <p>
-                        <h3 class="text">Rayban Optic</h3>
-                        <span class="text"
-                        ></span> <br>
-                        <strong>Mô tả sản phẩm:</strong> <span
-                    >
-                            Gọng kính Plastic H00238
-Với kiểu dáng trẻ trung năng động theo phong cách thời trang Hàn Quốc.
-Gọng kính nhẹ, bền, đeo thoải mái, và lắp được tròng với độ cao (Cận/Viễn/Loạn).
-Hiện tròng mẫu kính là mica không độ không có tính năng bảo vệ mắt. GlassyZone khuyến nghị nên lắp tròng kính (mắt cận) có tính năng để bảo vệ mắt tốt hơn.
-Kính được thiết kế theo form tròn trẻ trung, năng động, phù hợp cho Nam và Nữ.
-Chất liệu: gọng kính nhựa kết hợp càng kính kim loại phù hợp với nhiều khuôn mặt.
-Sản phẩm có sẵn nhận ngay sau 2-4 giờ đối với nội thành TP HCM, các khu vực khác từ 1-3 ngày.
-Gọng kính được bảo hành 12 tháng theo chính sách bảo hành của GlassyZone.
-Hình ảnh gọng kính thực tế được chụp tại GlassyZone.
-
-Bộ sản phẩm gồm: Gọng kính + Hộp đựng + Phiếu bảo hành.
+                        <h3 class="text">[[${product.name}]]</h3>
+                        <span class="text"></span> <br>
+                        <strong>Mô tả sản phẩm:</strong> <span>
+                          [[${product.description}]]
                         </span>
                         </p>
                         <hr>
@@ -71,11 +56,11 @@ Bộ sản phẩm gồm: Gọng kính + Hộp đựng + Phiếu bảo hành.
                     </div>
                 </div>
             </div>
-            <!--            <div th:unless="${detailProduct}">-->
-            <!--                <div class="alert alert-danger" role="alert">Sản phẩm không-->
-            <!--                    tồn tại hoặc đã bị xóa.-->
-            <!--                </div>-->
-            <!--            </div>-->
+                        <div th:unless="${product}">
+                            <div class="alert alert-danger" role="alert">Sản phẩm không
+                                tồn tại hoặc đã bị xóa.
+                            </div>
+                        </div>
         </div>
     </div>
 </div>

@@ -18,43 +18,28 @@
             <h2 class="text-center mb-4">Đăng Nhập</h2>
             <p class="text-center text-danger">[[${message}]]</p>
             <form th:action="@{/login}" method="post">
-                <!-- Email input -->
                 <div class="form-outline mb-4">
-                    <input th:value="${username}" name="username" id="form2Example1"
-                           class="form-control"/> <label class="form-label"
-                                                         for="form2Example1">Địa chỉ email</label>
+                    <input th:value="${username}" name="username" id="email" class="form-control"/>
+                    <label class="form-label" for="email">Địa chỉ email</label>
                 </div>
 
-                <!-- Password input -->
                 <div class="form-outline mb-4">
-                    <input th:value="${password}" name="password" type="password"
-                           id="form2Example2" class="form-control"/> <label
-                        class="form-label" for="form2Example2">Mật khẩu</label>
+                    <input th:value="${password}" name="password" type="password" id="password"
+                           class="form-control"/>
+                    <label class="form-label" for="password">Mật khẩu</label>
                 </div>
 
-                <!-- 2 column grid layout for inline styling -->
-                <div class="row mb-4">
-                    <div class="col d-flex justify-content-center">
-                        <!-- Checkbox -->
-                        <div class="form-check">
-                            <input name="remember" class="form-check-input" type="checkbox"
-                                   id="form2Example31"/> <label class="form-check-label"
-                                                                for="form2Example31"> Remember me </label>
-                        </div>
-                    </div>
+                <div class="row mb-4 float-end">
                     <div class="col">
-                        <a th:href="@{/	}" class="text-decoration-none">Quên mật khẩu</a>
+                        <a th:href="@{/forgot-password}" class="">Quên mật khẩu</a>
                     </div>
                 </div>
-                <button type="submit"
-                        class="btn btn-primary form-control btn-block mb-4">Đăng
-                    nhập
-                </button>
+                <button type="submit" class="btn btn-primary form-control btn-block mb-4">Đăng nhập</button>
             </form>
             <div class="text-center ">
                 <p>
-                    Bạn chưa có tài khoản? <a th:href="@{/signup}"
-                                              class="text-decoration-none">Đăng ký</a>
+                    Bạn chưa có tài khoản?
+                    <a th:href="@{/signup}" class="text-decoration-none">Đăng ký</a>
                 </p>
             </div>
         </div>

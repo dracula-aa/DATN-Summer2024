@@ -3,15 +3,17 @@
 <section class="py-5 mt-5">
     <div class="container">
         <h2 class="text-center">Sản phẩm nổi bật</h2>
-        <div class="col-lg-4 col-md-6 feature-product">
-            <div class="card mb-4 item" th:each="prod : ${product}">
-                <img th:src="@{|image/${prod.productImage}|}"
-                     class="card-img-top" alt="img">
+        <div class="col-lg-3 col-md-4 feature-product mt-4">
+            <div class="card mb-4 item" th:each="prod : ${products}">
+                <a th:href="@{/product/__${prod.slug}__}">
+                    <img th:src="@{/images/products/__${prod.image}__}"
+                         class="card-img-top" alt="${prod.name}">
+                </a>
                 <div class="card-body">
-                    <h5 class="card-title">[[${prod.productName}]]</h5>
-                    <p class="card-text">[[${prod.productDescription}]]</p>
+                    <h5 class="card-title">[[${prod.name}]]</h5>
+                    <p class="card-text">[[${prod.description}]]</p>
                     <p></p>
-                    <a th:href="@{|/product/${prod.productId}|}" class="btn btn-primary">View Details</a>
+                    <a th:href="@{|/product/${prod.slug}|}" class="btn btn-primary">View Details</a>
                 </div>
             </div>
         </div>

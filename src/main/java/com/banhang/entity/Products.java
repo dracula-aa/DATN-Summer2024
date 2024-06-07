@@ -20,6 +20,9 @@ public class Products {
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
+    @Column(name = "slug", nullable = false, length = 255, unique = true)
+    private String slug;
+
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
@@ -38,6 +41,10 @@ public class Products {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Categories category;
+
+    public void generateSlug() {
+        this.slug = name.toLowerCase().replaceAll("\\s+", "-");
+    }
 
 
 }
