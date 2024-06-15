@@ -17,44 +17,38 @@
     <div class="row justify-content-center mt-5">
         <div class="col-md-6">
             <h2 class="text-center mb-4">Đăng Ký</h2>
-            <marquee>[[${message}]]</marquee>
-            <form th:action="@{/register}" th:object="${user}" method="post">
+            <p th:if="${message}" th:text="${message}" class="text-danger text-center message"></p>
+            <form id="registerForm" th:action="@{/register}" th:object="${user}" method="post" novalidate>
                 <div class="form-outline mb-4">
-                    <input th:field="*{fullname}" id="form2Example1" class="form-control"
-                           placeholder="Họ và tên"/>
-                </div>
-
-                <div class="form-outline mb-4">
-                    <input th:field="*{address}"
-                           class="form-control" placeholder="Địa chỉ"/>
-                </div>
-
-                <div class="form-outline mb-4">
-                    <input th:field="*{phone}"  class="form-control"
-                           placeholder="Số điện thoại"/>
-                </div>
-
-                <div class="form-outline mb-4">
-                    <input th:field="*{email}" type="email"
-                           class="form-control" placeholder="Địa chỉ email"/>
+                    <input th:field="*{fullname}" id="fullname" class="form-control" placeholder="Họ và tên" required>
+                    <div class="invalid-feedback">Vui lòng nhập họ và tên.</div>
                 </div>
                 <div class="form-outline mb-4">
-                    <input th:field="*{password}" type="password"
-                           class="form-control" placeholder="Mật khẩu"/>
+                    <input th:field="*{address}" id="address" class="form-control" placeholder="Địa chỉ" required>
+                    <div class="invalid-feedback">Vui lòng nhập địa chỉ.</div>
                 </div>
                 <div class="form-outline mb-4">
-                    <input name="confirmPass" type="password"
-                           class="form-control" placeholder="Nhập lại mật khẩu"/>
+                    <input th:field="*{phone}" id="phone" class="form-control" placeholder="Số điện thoại" required>
+                    <div class="invalid-feedback">Vui lòng nhập số điện thoại.</div>
                 </div>
-                <button type="submit"
-                        class="btn btn-primary form-control btn-block text-center mb-4">Đăng
-                    ký
-                </button>
-
+                <div class="form-outline mb-4">
+                    <input th:field="*{email}" id="email" type="email" class="form-control" placeholder="Địa chỉ email"
+                           required>
+                    <div class="invalid-feedback">Vui lòng nhập địa chỉ email hợp lệ.</div>
+                </div>
+                <div class="form-outline mb-4">
+                    <input th:field="*{password}" id="password" type="password" class="form-control"
+                           placeholder="Mật khẩu" required>
+                    <div class="invalid-feedback">Vui lòng nhập mật khẩu.</div>
+                </div>
+                <div class="form-outline mb-4">
+                    <input id="confirmPass" name="confirmPass" type="password" class="form-control"
+                           placeholder="Nhập lại mật khẩu" required>
+                    <div class="invalid-feedback">Vui lòng nhập lại mật khẩu.</div>
+                </div>
+                <button type="submit" class="btn btn-primary form-control btn-block text-center mb-4">Đăng ký</button>
                 <div class="text-center">
-                    <p>
-                        Bạn đã có tài khoản? <a th:href="@{/login}" class="text-decoration-none">Đăng nhập</a>
-                    </p>
+                    <p>Bạn đã có tài khoản? <a th:href="@{/login}" class="text-decoration-none">Đăng nhập</a></p>
                 </div>
             </form>
         </div>
@@ -62,5 +56,27 @@
 </div>
 <br>
 <div th:insert="~{components/footer :: footer}"></div>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var registerForm = document.getElementById('registerForm');
+
+        registerForm.addEventListener('submit', function (event) {
+            if (!registerForm.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            registerForm.classList.add('was-validated');
+        }, false);
+    });
+
+    $('.message', function() {
+        setTimeout(function() {
+
+        }, 50000)
+    });
+</script>
+
 </body>
 </html>

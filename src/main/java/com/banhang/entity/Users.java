@@ -18,7 +18,7 @@ public class Users {
     @Column(name = "fullname", nullable = false, length = 255)
     private String fullname;
 
-    @Column(name = "day_of_birth", nullable = false, length = 255)
+    @Column(name = "day_of_birth", length = 255)
     private String dayOfBirth;
 
     @Column(name = "email", nullable = false, unique = true, length = 255)
@@ -27,15 +27,15 @@ public class Users {
     @Column(name = "password", nullable = false, length = 255)
     private String password;
 
-    @Column(name = "phone", nullable = false, length = 255)
+    @Column(name = "phone", length = 255)
     private String phone;
 
-    @Column(name = "address", nullable = false, length = 255)
+    @Column(name = "address", length = 255)
     private String address;
 
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender")
     private Boolean gender;
 
-    @Column(name = "role", nullable = false)
-    private Boolean role;
+    @Column(name = "role")
+    private Boolean role = false;
 }

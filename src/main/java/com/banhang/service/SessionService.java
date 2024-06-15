@@ -4,15 +4,15 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SessionService {
+public  class  SessionService {
 
-    private final HttpSession httpSession;
+    private  final HttpSession httpSession;
 
-    public SessionService(HttpSession httpSession) {
+    public  SessionService(HttpSession httpSession) {
         this.httpSession = httpSession;
     }
 
-    public void setAttribute(String name, Object value) {
+    public  void setAttribute(String name, Object value) {
         httpSession.setAttribute(name, value);
     }
 

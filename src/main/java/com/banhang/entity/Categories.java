@@ -24,6 +24,9 @@ public class Categories {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "slug", length = 255, nullable = false)
+    private String slug;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Products> products;
 

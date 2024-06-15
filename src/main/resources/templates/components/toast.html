@@ -1,0 +1,23 @@
+<!-- Success Toast -->
+<div th:if="${session.containsKey('success')}"
+     class="toast align-items-center position-absolute top-0 start-50 translate-middle-x bg-success text-white"
+     role="alert" aria-live="assertive" aria-atomic="true" style="margin-top: 100px; z-index: 9999">
+    <div class="d-flex">
+        <div class="toast-body">
+            <span th:text="${session.get('success')}"></span>
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>
+
+<!-- Error Toast -->
+<div th:if="${#fields.hasErrors('error')}"
+     class="toast align-items-center position-absolute top-0 start-50 translate-middle-x bg-danger text-white"
+     role="alert" aria-live="assertive" aria-atomic="true" style="margin-top: 100px; z-index: 9999">
+    <div class="d-flex">
+        <div class="toast-body">
+            <span th:text="${#fields.errors('error')[0].defaultMessage}"></span>
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+</div>

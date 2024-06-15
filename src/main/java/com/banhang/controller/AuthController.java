@@ -4,8 +4,11 @@ import com.banhang.entity.Users;
 import com.banhang.repository.UserRepository;
 import com.banhang.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,10 +63,33 @@ public class AuthController {
         return "auth/register";
     }
 
+    @PostMapping("/register")
+    public String handleRegister(Model model, @ModelAttribute("user") @Validated Users user,
+                                 BindingResult bindingResult) {
+        try {
+            if (bindingResult.hasErrors()) {
+                return "auth/register";
+            }
+
+            if (userRepository.existsByEmail(user.getEmail())) {
+                model.addAttribute("message", "Đăng ký không thành công, email đã tồn tại trong hệ thống.");
+                return "auth/register";
+            }
+
+            userRepository.save(user);
+            model.addAttribute("message", "Đăng ký thành công");
+            sessionService.setAttribute("user", user);
+            return "redirect:/home";
+        } catch (Exception ex) {
+            model.addAttribute("message", "Đăng ký không thành công, vui lòng thử lại sau.");
+            ex.printStackTrace();
+            return "auth/register";
+        }
+    }
     @GetMapping("/logout")
     public String logout() {
         sessionService.invalidate();
-        return "auth/login";
+        return "redirect:/login";
     }
 
 }

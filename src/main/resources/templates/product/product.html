@@ -14,42 +14,108 @@
 <br>
 <br>
 <section class="py-5 mt-5">
-    <div class="container">
-        <div class="row d-flex justify-content-between align-items-center mb-3">
-            <div class="col-md-3">
-                <p>Tìm thấy [[${products.size()}]] sản phẩm</p>
-            </div>
-            <div class="col-md-2">
-                <div class="d-flex justify-content-between align-items-center">
-                    <i class="ti ti-filter fs-5 me-2"></i>
-                    <select id="sortSelect" class="form-select form-select-sm">
-                        <option value="">Sắp xếp theo</option>
-                        <option value="price_asc">Giá tăng dần</option>
-                        <option value="price_desc">Giá giảm dần</option>
-                        <option value="sold_desc">Bán chạy nhất</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-
+    <div class="px-3">
         <div class="row">
-            <div th:each="prod : ${products}" class="col-lg-4 col-md-6">
-                <div class="card mb-4">
-                    <a th:href="@{/product/__${prod.slug}__}">
-                        <img th:src="@{/images/products/__${prod.image}__}" class="card-img-top" alt="${prod.name}">
-                    </a>
-                    <div class="card-body">
-                        <h5 class="card-title">[[${prod.name}]]</h5>
-                        <span class="fst-italic text-success"
-                              th:text="${#numbers.formatDecimal(prod.price, 0, 'COMMA', 0, 'POINT') + ' đ'}"></span>
-                        <p class="card-text">[[${prod.description}]]</p>
+            <div class="col-md-3">
+                <!--search-->
+                <div class="row d-flex justify-content-between align-items-center mb-4">
+                    <h5>Tìm kiếm sản phẩm</h5>
+                    <form th:action="@{/product/search}" method="GET">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="keyword"
+                                   th:value="${keyword}">
+                            <button class="btn btn-outline-secondary " type="submit">
+                                <i class="ti ti-search fs-5"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!--category-->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <h5>Danh mục</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a th:href="@{/product}" class="text-decoration-none text-dark">Tất cả</a>
+                                <span class="badge bg-secondary rounded-pill" th:text="${session.productsCount}"></span>
+                            </li>
+                            <li th:each="category : ${categories}"
+                                class="list-group-item d-flex justify-content-between align-items-center">
+                                <a th:href="@{/product/category/__${category.slug}__}"
+                                   class="text-decoration-none text-dark"
+                                   th:text="${category.name}"></a>
+                                <span class="badge bg-secondary rounded-pill"
+                                      th:text="${category.products.size()}"></span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="row d-flex justify-content-between align-items-center mb-3">
+                    <div class="col-md-3">
+                        <p>Tìm thấy [[${products.size()}]] sản phẩm</p>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <i class="ti ti-filter fs-5 me-2"></i>
+                            <select id="sortSelect" class="form-select form-select-sm">
+                                <option value="">Sắp xếp theo</option>
+                                <option value="price_asc">Giá tăng dần</option>
+                                <option value="price_desc">Giá giảm dần</option>
+                                <option value="sold_desc">Bán chạy nhất</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div th:each="prod : ${products}" class="col-lg-4 col-md-6">
+                        <div class="card mb-4">
+                            <a th:href="@{/product/__${prod.slug}__}">
+                                <img th:src="@{/images/products/__${prod.image}__}" class="card-img-top"
+                                     alt="${prod.name}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${prod.name}"></h5>
+                                <p class="card-text" th:text="${prod.description}"></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fst-italic text-success"
+                                          th:text="${#numbers.formatDecimal(prod.price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                                    <button class="btn btn-primary add-to-cart"
+                                            th:attr="data-product-id=${prod.id},data-product-name=${prod.name},data-product-price=${prod.price},
+                                            data-product-image=${prod.image}">
+                                        <i class="ti ti-shopping-cart fs-5"></i> Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="pagination justify-content-center mt-4">
+                    <li th:class="${currentPage != null && currentPage == 1} ? 'page-item disabled' : 'page-item'">
+                        <a th:if="${currentPage != null}"
+                           th:href="@{/product?page=__${currentPage - 1}__&size=__${pageSize}__}"
+                           class="page-link"><<</a>
+                    </li>
+                    <li th:each="pageNumber : ${#numbers.sequence(1, totalPages != null ? totalPages - 1 : 0)}"
+                        th:class="${currentPage != null && currentPage == pageNumber} ? 'page-item active' : 'page-item'">
+                        <a th:href="@{/product?page=__${pageNumber}__&size=__${pageSize}__}" class="page-link"
+                           th:text="${pageNumber }"></a>
+                    </li>
+                    <li th:class="${currentPage != null && currentPage == (totalPages != null ? totalPages - 1 : 0)} ? 'page-item disabled' : 'page-item'">
+                        <a th:if="${currentPage != null}"
+                           th:href="@{/product?page=__${currentPage + 1}__&size=__${pageSize}__}"
+                           class="page-link">>></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </section>
 <br>
+<script th:src="@{/js/cart.js}"></script>
 <div th:insert="~{components/footer :: footer}"></div>
 </body>
 <script>

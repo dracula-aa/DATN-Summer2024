@@ -16,7 +16,7 @@
             border: 1px solid #dee2e6;
         }
 
-        .cart{
+        .cart {
             margin-top: 100px;
         }
     </style>
@@ -26,7 +26,7 @@
 <br>
 <div class="container mt-5 cart">
     <div class="table-responsive">
-        <table class="table">
+        <table class="table" id="cart-table">
             <thead>
             <tr>
                 <th scope="col">Product Name</th>
@@ -36,70 +36,7 @@
                 <th scope="col">Actions</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <div class="d-flex">
-                        <div class="cart-img bg-danger">
-                            <span>220 X 180</span>
-                        </div>
-                        <div class="ms-3">
-                            <h5>Unionbay Park</h5>
-                            <p>Size: 10.5<br>Color: Dark Blue</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <input type="number" class="form-control" value="1" min="1">
-                </td>
-                <td>$43.90</td>
-                <td>$18.00</td>
-                <td>
-                    <button class="btn btn-danger">Remove</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="d-flex">
-                        <div class="cart-img bg-secondary">
-                            <span>220 X 180</span>
-                        </div>
-                        <div class="ms-3">
-                            <h5>Daily Fabric Cap</h5>
-                            <p>Size: XL<br>Color: Black</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <input type="number" class="form-control" value="2" min="1">
-                </td>
-                <td>$24.89</td>
-                <td>—</td>
-                <td>
-                    <button class="btn btn-danger">Remove</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="d-flex">
-                        <div class="cart-img bg-primary">
-                            <span>220 X 180</span>
-                        </div>
-                        <div class="ms-3">
-                            <h5>Cole Haan Crossbody</h5>
-                            <p>Size: —<br>Color: Turquoise</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <input type="number" class="form-control" value="1" min="1">
-                </td>
-                <td>$200.00</td>
-                <td>—</td>
-                <td>
-                    <button class="btn btn-danger">Remove</button>
-                </td>
-            </tr>
+            <tbody id="cart-items">
             </tbody>
         </table>
     </div>
@@ -109,21 +46,22 @@
             <button class="btn btn-primary">Apply Coupon</button>
         </div>
         <div>
-            <button class="btn btn-secondary">Clear Cart</button>
+            <button class="btn btn-secondary clear-cart">Clear Cart</button>
         </div>
     </div>
     <div class="d-flex justify-content-between align-items-center mt-4">
         <div>
-            <button class="btn btn-light">Back to Shopping</button>
+            <a class="btn btn-light"  th:href="@{/product}">Back to Shopping</a>
         </div>
         <div>
-            <span class="me-3">Subtotal: $289.68</span>
-            <button class="btn btn-primary">Update Cart</button>
+            <span class="me-3">Subtotal: $<span id="cart-total">0.00</span></span>
+            <button class="btn btn-primary update-cart">Update Cart</button>
             <button class="btn btn-success">Checkout</button>
         </div>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/cart.js}"></script>
 </body>
 </html>
