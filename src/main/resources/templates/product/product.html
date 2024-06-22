@@ -83,9 +83,12 @@
                                     <span class="fst-italic text-success"
                                           th:text="${#numbers.formatDecimal(prod.price, 0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
                                     <button class="btn btn-primary add-to-cart"
-                                            th:attr="data-product-id=${prod.id},data-product-name=${prod.name},data-product-price=${prod.price},
+                                            th:attr="
+                                            data-product-id=${prod.id},
+                                            data-product-name=${prod.name},
+                                            data-product-price=${prod.price},
                                             data-product-image=${prod.image}">
-                                        <i class="ti ti-shopping-cart fs-5"></i> Add to Cart
+                                        <i class="ti ti-shopping-cart fs-5"></i>
                                     </button>
                                 </div>
                             </div>

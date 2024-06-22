@@ -5,35 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giỏ hàng</title>
     <link th:insert="~{components/taglib :: taglib}">
-    <style>
-        .cart-img {
-            width: 220px;
-            height: 180px;
-            background-color: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #dee2e6;
-        }
-
-        .cart {
-            margin-top: 100px;
-        }
-    </style>
 </head>
 <body>
 <div th:insert="~{components/header :: header}"></div>
 <br>
 <div class="container mt-5 cart">
-    <div class="table-responsive">
-        <table class="table" id="cart-table">
+    <div class="table-responsive pt-3 pb-5">
+        <table class="table " id="cart-table">
             <thead>
             <tr>
-                <th scope="col">Product Name</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Subtotal</th>
-                <th scope="col">Discount</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Sản phẩm</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Đơn giá</th>
+                <th scope="col">Thành tiền</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody id="cart-items">
@@ -43,20 +28,20 @@
     <div class="d-flex justify-content-between align-items-center">
         <div class="input-group w-50">
             <input type="text" class="form-control" placeholder="Coupon code">
-            <button class="btn btn-primary">Apply Coupon</button>
+            <button class="btn btn-primary rounded-0">Apply Coupon</button>
         </div>
         <div>
-            <button class="btn btn-secondary clear-cart">Clear Cart</button>
+            <button class="btn btn-secondary rounded-0 clear-cart">Clear Cart</button>
         </div>
     </div>
     <div class="d-flex justify-content-between align-items-center mt-4">
         <div>
-            <a class="btn btn-light"  th:href="@{/product}">Back to Shopping</a>
+            <a class="btn btn-light" th:href="@{/product}">Back to Shopping</a>
         </div>
         <div>
-            <span class="me-3">Subtotal: $<span id="cart-total">0.00</span></span>
-            <button class="btn btn-primary update-cart">Update Cart</button>
-            <button class="btn btn-success">Checkout</button>
+            <span class="me-3">Tổng thanh toán: <span id="cart-total">0.00</span></span>
+<!--            <button class="btn btn-primary rounded-0 update-cart">Update Cart</button>-->
+            <a class="btn btn-success rounded-0" th:href="@{/checkout}">Checkout</a>
         </div>
     </div>
 </div>

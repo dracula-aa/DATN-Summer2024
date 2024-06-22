@@ -31,10 +31,17 @@
                         <strong>Mô tả sản phẩm:</strong> <span>
                           [[${product.description}]]
                         </span>
-                        </p>
                         <hr>
-                        <button class="btn btn-warning">Thêm vào giỏ hàng</button>
-                        <button class="btn btn-warning">Mua ngay</button>
+                        <button class="btn btn-primary add-to-cart rounded-0"
+                                th:attr="
+                                data-product-id=${product.id},
+                                data-product-name=${product.name},
+                                data-product-price=${product.price},
+                                data-product-image=${product.image}"
+                        >
+                            <i class="ti ti-shopping-cart fs-5"></i>
+                        </button>
+                        <button class="btn btn-primary rounded-0">Mua ngay</button>
                         <br> <br>
                         <div class="card-body">
                             <strong>TẠI SAO LẠI CHỌN GLASSYZONE?</strong> <br> <br>
@@ -56,11 +63,11 @@
                     </div>
                 </div>
             </div>
-                        <div th:unless="${product}">
-                            <div class="alert alert-danger" role="alert">Sản phẩm không
-                                tồn tại hoặc đã bị xóa.
-                            </div>
-                        </div>
+            <div th:unless="${product}">
+                <div class="alert alert-danger" role="alert">Sản phẩm không
+                    tồn tại hoặc đã bị xóa.
+                </div>
+            </div>
         </div>
     </div>
 </div>

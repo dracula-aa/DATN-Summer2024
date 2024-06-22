@@ -1,32 +1,54 @@
 $(document).ready(function() {
-    var cart = [];
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function formatDecimal(number) {
+        return number.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ₫';
+    }
+
+    function updateCartCount(count) {
+        $(".cart-item-count").text(count);
+    }
+
+    function saveCart() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
 
     function updateCart() {
-        var cartItemsElement = $("#cart-items");
+        let total = 0;
+        let totalItems = 0;
+        let cartItemsElement = $('#cart-items');
         cartItemsElement.empty();
 
-        var total = 0;
-
         cart.forEach(function(item) {
-            var subtotal = item.quantity * item.price;
+            let subtotal = item.quantity * item.price;
             total += subtotal;
+            totalItems += item.quantity;
 
-            var row = `
-            <tr>
-                <td th:text="${item.name}"></td>
-                <td><input type="number" class="form-control quantity" th:value="${item.quantity}" min="1"></td>
-                <td th:text="'$' + ${#numbers.formatDecimal(item.price, 2, 'COMMA', 0, 'POINT')}"></td>
-                <td th:text="'$' + ${#numbers.formatDecimal(item.quantity * item.price, 2, 'COMMA', 0, 'POINT')}"></td>
-                <td><button class="btn btn-danger remove-from-cart">Remove</button></td>
-            </tr>
-        `;
-
+            let row = `
+                <tr data-product-id="${item.id}">
+                    <td>
+                        ${item.name}
+                        <div style="max-width: 100px; max-height: 100px; overflow: hidden;">
+                            <img src="/images/products/${item.image}" style="width: 100%; height: auto; display: block;"/>
+                        </div> 
+                    </td>
+                    <td><input class="form-control w-50 quantity" value="${item.quantity}" min="1" type="number"/></td>
+                    <td>${formatDecimal(item.price)}</td>
+                    <td>${formatDecimal(subtotal)}</td>
+                    <td><button class="btn btn-danger rounded-0 remove-from-cart"><i class="ti ti-trash"></i></button></td>
+                </tr>
+            `;
             cartItemsElement.append(row);
         });
 
-        $("#cart-total").text(total.toFixed(2));
-    }
+        $('.count-item').text(totalItems);
+        $('.amount').text(formatDecimal(total));
+        $('.total-price').text(formatDecimal(total));
 
+        updateCartCount(cart.length);
+        $("#cart-total").text(formatDecimal(total));
+        saveCart();
+    }
 
     function addToCart(product) {
         var existingItem = cart.find(item => item.id === product.id);
@@ -44,12 +66,11 @@ $(document).ready(function() {
             id: button.data("product-id"),
             name: button.data("product-name"),
             price: parseFloat(button.data("product-price")),
-            quantity: 1
+            image: button.data("product-image")
         };
 
         addToCart(product);
     });
-
 
     $(document).on("click", ".remove-from-cart", function() {
         var productId = $(this).closest("tr").data("product-id");
@@ -72,9 +93,5 @@ $(document).ready(function() {
         updateCart();
     });
 
-    // Gọi updateCart lần đầu khi trang được load
     updateCart();
-
-    // Khai báo hàm updateCart ở global scope để có thể gọi lại từ bất kỳ đâu
-    window.updateCart = updateCart;
 });

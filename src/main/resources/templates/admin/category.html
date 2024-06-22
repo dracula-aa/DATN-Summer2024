@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/image/logo.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý danh mục</title>
+    <link th:insert="~{components/taglib  :: taglib}">
+</head>
+
+<body>
+<div th:insert="~{components/header :: header}"></div>
+<br>
+<div class="container mt-5 mb-4">
+    <div class="d-flex align-items-center mb-4">
+        <button type="button" class="btn btn-dark rounded-0 btn-sm  me-2" data-bs-toggle="modal" data-bs-target="#createModal">
+            Thêm Danh Mục
+        </button>
+        <form th:action="@{/admin/search}" class="form-inline d-flex align-items-center my-2 my-lg-0 flex-grow-1" method="get">
+            <input name="search" class="form-control form-control-sm mr-sm-2 flex-grow-1 me-2" type="search"
+                   placeholder="Nhập vào tên danh mục để tìm!" aria-label="Search">
+            <button class="btn btn-dark rounded-0  btn-sm my-2 my-sm-0" type="submit">
+                <i class="ti ti-search"></i>
+            </button>
+        </form>
+    </div>
+    <p class="text-center text-success message" th:text="${message}"></p>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <h3>Quản lý danh mục</h3>
+        <table th:if="${category != null}" class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Slug</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cate, iterStat : ${category}">
+                <td th:text="${cate.id}"></td>
+                <td th:text="${cate.name}"></td>
+                <td th:text="${cate.slug}"></td>
+                <td th:text="${cate.description}"></td>
+                <td>
+                    <!-- Modal update -->
+                    <a class="btn btn-primary btn-sm"
+                       data-bs-toggle="modal" th:data-bs-target="'#updateModal' + ${iterStat.index}">
+                        <i class="ti ti-edit"> </i>
+                    </a>
+                    <div class="modal fade" th:id="'updateModal' + ${iterStat.index}" tabindex="-1"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" th:text="'Cập nhật ' + ${cate.name}"></h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{/admin/category/save}" method="post">
+                                        <div class="mb-3" style="display: none;">
+                                            <input name="id" th:value="${cate.id}" type="text" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Tên danh mục</label>
+                                            <input name="name" th:value="${cate.name}" type="text"
+                                                   class="form-control" id="name">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="slugUpdate" class="form-label">Slug</label>
+                                            <input name="slug" id="slugUpdate" th:value="${cate.slug}" type="text"
+                                                   class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="moTaUpdate" class="form-label">Mô Tả</label>
+                                            <textarea name="description" id="moTaUpdate"
+                                                      class="form-control" th:text="${cate.description}"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">Cập nhật</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal delete -->
+                    <a class="btn btn-danger btn-sm"
+                       data-bs-toggle="modal" th:data-bs-target="'#confirmDeleteModal' + ${iterStat.index}">
+                        <i class="ti ti-trash"> </i>
+                    </a>
+                    <div class="modal fade" th:id="'confirmDeleteModal' + ${iterStat.index}" tabindex="-1"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">Xác nhận xoá</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p> Bạn có chắc chắn muốn xóa <span class="fw-bold"
+                                                                        th:text="${cate.name}"></span>
+                                        không?</p>
+                                    <div class="text-center">
+                                        <a th:href="@{'/admin/category/delete/' + ${cate.id}}"
+                                           class="btn btn-danger">Yes</a>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal create -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Danh Mục</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/admin/category/save}" method="post">
+                    <div class="mb-3">
+                        <label for="tenNhaTro" class="form-label">Tên danh mục</label>
+                        <input name="name" type="text" class="form-control" id="tenNhaTro">
+                    </div>
+                    <div class="mb-3">
+                        <label for="slug" class="form-label">Slug</label>
+                        <input name="slug" type="text" class="form-control" id="slug">
+                    </div>
+                    <div class="mb-3">
+                        <label for="moTa" class="form-label">Mô Tả</label>
+                        <textarea name="description" id="moTa" rows="5" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Thêm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+<script>
+    // JS to hide messages after 5 seconds
+    const messages = document.getElementsByClassName('message');
+
+    for (let i = 0; i < messages.length; i++) {
+        const message = messages[i];
+        message.style.display = 'block';
+
+        setTimeout(function () {
+            message.style.display = 'none';
+        }, 5000);
+    }
+</script>
+
+</body>
+</html>
