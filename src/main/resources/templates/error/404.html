@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassyarea - 404</title>
+    <link th:insert="~{components/taglib :: taglib}">
+</head>
+<body>
+
+    <div class="text-center mt-5">
+        <div class="error mx-auto" data-text="404">404</div>
+        <p class="lead text-gray-800 mb-5">Page Not Found</p>
+        <a th:href="@{/home}">&larr; Back to Dashboard</a>
+    </div>
+
+</body>
+</html>

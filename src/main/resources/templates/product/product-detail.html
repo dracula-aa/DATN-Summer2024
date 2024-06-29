@@ -20,7 +20,7 @@
             <div th:if="${product}">
                 <div class="row">
                     <div class="col-6">
-                        <img th:src="@{/images/products/product1.jpg}"
+                        <img th:src="@{/images/products/__${product.image}__}"
                              alt="Ảnh sản phẩm" class="img-thumbnail"
                              style="width: 595px; height: 595px">
                     </div>
@@ -72,6 +72,7 @@
     </div>
 </div>
 <br>
+<script th:src="@{/js/cart.js}"></script>
 <div th:insert="~{components/footer :: footer}"></div>
 </body>
 </html>

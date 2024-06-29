@@ -34,24 +34,19 @@ public class ProductController {
     public String index(Model model,
                         @RequestParam(name = "page", defaultValue = "0") int page,
                         @RequestParam(name = "size", defaultValue = "9") int size) {
-        // Tính toán số lượng bản ghi bắt đầu
         int start = page * size;
 
-        // Lấy danh sách sản phẩm dựa trên phân trang
         Page<Products> productsPage = productRepository.findAll(PageRequest.of(page, size));
         List<Products> products = productsPage.getContent();
 
-        // Lấy tất cả danh mục sản phẩm
         List<Categories> categories = categoryRepository.findAll();
 
-        // Đưa dữ liệu vào model
         model.addAttribute("products", products);
         model.addAttribute("categories", categories);
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", size);
         model.addAttribute("totalPages", productsPage.getTotalPages());
 
-        // Đặt số lượng sản phẩm vào session
         sessionService.setAttribute("productsCount", productRepository.count());
 
         return "product/product";

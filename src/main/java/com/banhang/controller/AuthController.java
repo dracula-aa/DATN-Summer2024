@@ -1,6 +1,7 @@
 package com.banhang.controller;
 
 import com.banhang.entity.Users;
+import com.banhang.repository.OrderRepository;
 import com.banhang.repository.UserRepository;
 import com.banhang.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class AuthController {
     @Autowired
     SessionService sessionService;
 
+    @Autowired
+    OrderRepository orderRepository;
+
     @GetMapping("/login")
     public String login() {
         return "auth/login";
@@ -32,12 +36,12 @@ public class AuthController {
 
     @PostMapping("/login")
     public String checkLogin(Model model, @RequestParam(name = "remember", required = false) String remember,
-                             @RequestParam("username") String username, @RequestParam("password") String password) throws IOException {
-        Users user = userRepository.findByEmail(username);
+                             @RequestParam("email") String email, @RequestParam("password") String password) throws IOException {
+        Users user = userRepository.findByEmail(email).orElse(null);
         try {
             if (user != null) {
                 if (user.getPassword().equals(password)) {
-                    if (user.getRole()) {
+                    if (user.getRole().equals("ADMIN")) {
                         sessionService.setAttribute("user", user);
                         return "redirect:/home";
                     } else {
@@ -72,7 +76,7 @@ public class AuthController {
             }
 
             if (userRepository.existsByEmail(user.getEmail())) {
-                model.addAttribute("message", "Đăng ký không thành công, email đã tồn tại trong hệ thống.");
+                model.addAttribute("message", "Email đã tồn tại trong hệ thống.");
                 return "auth/register";
             }
 
@@ -86,10 +90,19 @@ public class AuthController {
             return "auth/register";
         }
     }
+
     @GetMapping("/logout")
     public String logout() {
         sessionService.invalidate();
         return "redirect:/login";
     }
+
+    @GetMapping("/profile")
+    public String profile(Model model) {
+
+
+        return "auth/profile";
+    }
+
 
 }

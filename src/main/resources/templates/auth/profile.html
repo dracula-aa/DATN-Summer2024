@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassyarea - Thông tin khách hàng</title>
+    <link th:insert="~{components/taglib  :: taglib}">
+    <style>
+    </style>
+</head>
+<body>
+<div th:insert="~{components/header :: header}"></div>
+<br>
+<div class="container">
+
+</div>
+<br>
+<div th:insert="~{components/footer :: footer}"></div>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var registerForm = document.getElementById('registerForm');
+
+        registerForm.addEventListener('submit', function (event) {
+            if (!registerForm.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            registerForm.classList.add('was-validated');
+        }, false);
+    });
+
+    $('.message', function () {
+        setTimeout(function () {
+
+        }, 50000)
+    });
+</script>
+
+</body>
+</html>

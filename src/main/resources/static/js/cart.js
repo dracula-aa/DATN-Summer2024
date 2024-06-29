@@ -44,6 +44,7 @@ $(document).ready(function() {
         $('.count-item').text(totalItems);
         $('.amount').text(formatDecimal(total));
         $('.total-price').text(formatDecimal(total));
+        $('.total-payment').val(total);
 
         updateCartCount(cart.length);
         $("#cart-total").text(formatDecimal(total));

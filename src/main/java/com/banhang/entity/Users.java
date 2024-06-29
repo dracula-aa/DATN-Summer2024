@@ -37,5 +37,5 @@ public class Users {
     private Boolean gender;
 
     @Column(name = "role")
-    private Boolean role = false;
+    private String role;
 }
